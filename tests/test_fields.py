@@ -4,10 +4,10 @@ except ImportError:
     import unittest
 from datetime import timedelta
 
-from mongoengine import Document, NotUniqueError, ValidationError, connect
+from mongoengine import connect, Document, NotUniqueError, ValidationError
 from mongoengine.connection import get_db
 
-from extras_mongoengine.fields import TimedeltaField, LowerStringField, LowerEmailField
+from extras_mongoengine.fields import LowerEmailField, LowerStringField, TimedeltaField
 
 
 class OldStyleTimedelta(timedelta):

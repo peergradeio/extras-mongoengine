@@ -1,14 +1,12 @@
-import os
 import datetime
+import os
 
-from mongoengine.base import BaseField
-from mongoengine.python_support import str_types
-
-from django.db.models.fields.files import FieldFile
 from django.core.files.base import File
 from django.core.files.storage import default_storage
-
+from django.db.models.fields.files import FieldFile
 from django.utils.encoding import force_str, force_text
+from mongoengine.base import BaseField
+from mongoengine.python_support import str_types
 
 
 class LocalStorageFileField(BaseField):
@@ -59,16 +57,19 @@ class LocalStorageFileField(BaseField):
         instance._mark_as_changed(key)
 
     def get_directory_name(self):
-        return os.path.normpath(force_text(
-                datetime.datetime.now().strftime(force_str(self.upload_to))))
+        return os.path.normpath(
+            force_text(datetime.datetime.now().strftime(force_str(self.upload_to)))
+        )
 
     def get_filename(self, filename):
         return os.path.normpath(
-                self.storage.get_valid_name(os.path.basename(filename)))
+            self.storage.get_valid_name(os.path.basename(filename))
+        )
 
     def generate_filename(self, instance, filename):
         return os.path.join(
-                self.get_directory_name(), self.get_filename(filename))
+            self.get_directory_name(), self.get_filename(filename)
+        )
 
     def to_mongo(self, value):
         if isinstance(value, self.proxy_class):

@@ -2,19 +2,21 @@ try:
     import unittest2 as unittest
 except ImportError:
     import unittest
-
 from enum import Enum
+
+from mongoengine import connect, connection, Document
+
+from extras_mongoengine.fields import IntEnumField, StringEnumField
+
 
 class IntEnum(Enum):
     FIRST = 1
     SECOND = 2
 
+
 class StringEnum(Enum):
     FIRST = 'FIRST'
     SECOND = 'SECOND'
-
-from mongoengine import Document, connect, connection
-from extras_mongoengine.fields import StringEnumField, IntEnumField
 
 
 class EnumFieldTestCase(unittest.TestCase):

@@ -1,6 +1,7 @@
 from datetime import timedelta
+
 from mongoengine.base import BaseField
-from mongoengine.fields import IntField, StringField, EmailField
+from mongoengine.fields import EmailField, IntField, StringField
 
 
 class TimedeltaField(BaseField):
@@ -91,14 +92,18 @@ class EnumField(object):
 
     def prepare_query_value(self, op, value):
         return super(EnumField, self).prepare_query_value(
-                op, self.__get_value(value))
+            op,
+            self.__get_value(value),
+        )
 
     def validate(self, value):
         return super(EnumField, self).validate(self.__get_value(value))
 
     def _validate(self, value, **kwargs):
         return super(EnumField, self)._validate(
-                self.enum(self.__get_value(value)), **kwargs)
+            self.enum(self.__get_value(value)),
+            **kwargs
+        )
 
 
 class IntEnumField(EnumField, IntField):

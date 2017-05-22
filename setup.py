@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+from distutils.core import setup
 import sys
 
-from distutils.core import setup
 
 # If we're on Python 2
 install_requires = ['mongoengine>=0.8.6']
