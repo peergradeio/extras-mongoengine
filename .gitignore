@@ -7,3 +7,9 @@
 *.egg
 /.eggs
 *.egg-info
+
+# Tests #
+#########
+.cache
+__pycache__
+/.tox
