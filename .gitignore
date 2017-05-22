@@ -1,3 +1,9 @@
+# Compiled source #
+###################
 *.pyc
-build/
-venv/
+
+# Packages #
+############
+*.egg
+/.eggs
+*.egg-info
