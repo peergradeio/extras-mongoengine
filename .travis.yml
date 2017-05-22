@@ -1,0 +1,31 @@
+language: python
+python:
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
+- pypy
+# - pypy3.3-5.5.0 # Disable PyPy3 on Travis CI for now
+# (See: https://github.com/travis-ci/travis-ci/issues/6277)
+services:
+    - mongodb
+matrix:
+  fast_finish: true
+install:
+- sudo apt-get install python-dev python3-dev libopenjpeg-dev zlib1g-dev libjpeg-turbo8-dev
+  libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev
+  python-tk
+- travis_retry pip install coveralls
+- travis_retry pip install tox>=1.9
+- travis_retry pip install virtualenv
+- travis_retry tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/') -- -e test
+
+script:
+- tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/') -- --cov-report= --cov=extras_mongoengine
+
+after_script: coveralls --verbose
+
+branches:
+  only:
+  - master
+  - /^v.*$/
