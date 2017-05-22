@@ -57,12 +57,14 @@ class LowerStringField(StringField):
         return super(LowerStringField, self).prepare_query_value(op, value)
 
 
-class LowerEmailField(LowerStringField):
+class LowerEmailField(EmailField):
+    def __set__(self, instance, value):
+        value = value.lower() if value else value
+        return super(LowerEmailField, self).__set__(instance, value)
 
-    def validate(self, value):
-        if not EmailField.EMAIL_REGEX.match(value):
-            self.error('Invalid Mail-address: %s' % value)
-        super(LowerEmailField, self).validate(value)
+    def prepare_query_value(self, op, value):
+        value = value.lower() if value else value
+        return super(LowerEmailField, self).prepare_query_value(op, value)
 
 
 class EnumField(object):
